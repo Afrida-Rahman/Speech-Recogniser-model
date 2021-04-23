@@ -6,7 +6,7 @@ SAVED_MODEL_PATH = "model.h5"
 SAMPLES_TO_CONSIDER = 22050
 
 
-class _Keyword_Spotting_Service:
+class keyword:
     model = None
     _mapping = [
         "down",
@@ -41,18 +41,18 @@ class _Keyword_Spotting_Service:
         return MFCCs.T
 
 
-def Keyword_Spotting_Service():
-    if _Keyword_Spotting_Service._instance is None:
-        _Keyword_Spotting_Service._instance = _Keyword_Spotting_Service()
-        _Keyword_Spotting_Service.model = tf.keras.models.load_model(SAVED_MODEL_PATH)
-    return _Keyword_Spotting_Service._instance
+def Keyword_Predict():
+    if keyword._instance is None:
+        keyword._instance = keyword()
+        keyword.model = tf.keras.models.load_model(SAVED_MODEL_PATH)
+    return keyword._instance
 
 
 if __name__ == "__main__":
-    kss = Keyword_Spotting_Service()
-    kss1 = Keyword_Spotting_Service()
+    kss = Keyword_Predict()
+    kss1 = Keyword_Predict()
 
     assert kss is kss1
 
-    keyword = kss.predict("test/down.wav")
-    print(keyword)
+    keyword = kss.predict("test/no.wav")
+    print(f"Predicted class : {keyword}" )
